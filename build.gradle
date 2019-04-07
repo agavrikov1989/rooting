@@ -1,0 +1,40 @@
+group 'rooing'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.postgresql:postgresql:9.4.1212'
+    compile 'org.springframework:spring-core:4.3.13.RELEASE'
+    compile 'org.springframework:spring-context:4.3.13.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.3.13.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'org.springframework', name: 'spring-aop', version: '4.3.13.RELEASE'
+    compile group: 'org.springframework', name: 'spring-beans', version: '4.3.13.RELEASE'
+
+    compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
