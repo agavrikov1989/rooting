@@ -2,6 +2,7 @@ package rooting.controller;
 
 import java.time.LocalDateTime;
 
+import org.postgresql.util.PGInterval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -31,13 +32,17 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public void saveOrder(@RequestParam int stockId,
                           @RequestParam double latitude, @RequestParam double longitude,
-                          @RequestParam double length, @RequestParam double width, @RequestParam double height,
-                          @RequestParam double weigth,
-                          @RequestParam(value = "from", required = false)
-                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timeFrom,
-                          @RequestParam(value = "to", required = false)
-                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timeTo
-    ) {
-        orderService.saveOrder(stockId, latitude, longitude, length, width, height, weigth, timeFrom, timeTo);
+                          @RequestParam(required = false) Double weigth, @RequestParam(required = false) Double capacity,
+                          @RequestParam(value = "deliveryTimeFrom", required = false)
+                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime deliveryTimeFrom,
+                          @RequestParam(value = "deliveryTimeTo", required = false)
+                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime deliveryTimeTo,
+                          @RequestParam(value = "load", required = false, defaultValue = "0 mins") PGInterval loadInterval,
+                          @RequestParam(value = "uploading", required = false, defaultValue = "0 mins") PGInterval uploadingInterval) {
+        orderService.saveOrder(
+                stockId, latitude, longitude,
+                weigth, capacity,
+                deliveryTimeFrom, deliveryTimeTo,
+                loadInterval, uploadingInterval);
     }
 }
