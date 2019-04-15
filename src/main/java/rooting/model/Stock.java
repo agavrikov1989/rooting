@@ -1,5 +1,7 @@
 package rooting.model;
 
+import java.time.LocalDateTime;
+
 /**
  * @author agavrikov
  * @date 22.01.19
@@ -7,6 +9,7 @@ package rooting.model;
 public class Stock {
 
     private long id;
+    private LocalDateTime creationTime;
     private Point location;
 
     public Stock() {
@@ -14,6 +17,7 @@ public class Stock {
 
     public Stock(long id, Point location) {
         this.id = id;
+        this.creationTime = LocalDateTime.now();
         this.location = location;
     }
 
@@ -23,6 +27,14 @@ public class Stock {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
     public Point getLocation() {

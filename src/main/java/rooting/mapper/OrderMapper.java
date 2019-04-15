@@ -16,21 +16,22 @@ public class OrderMapper implements RowMapper<Order> {
     @Override
     public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
         Order order = new Order();
+        ResultSetWrapper rsWrapper = new ResultSetWrapper(rs);
         order.setId(rs.getLong("id"));
         order.setStockId(rs.getLong("stock_id"));
+        order.setCreationTime(rsWrapper.getLocalDateTime("creation_time"));
         order.setDestination(
                 new Point(
                         rs.getDouble("latitude"),
                         rs.getDouble("longitude")
                 )
         );
-        order.setLength(rs.getDouble("length"));
-        order.setLength(rs.getDouble("width"));
-        order.setLength(rs.getDouble("height"));
-        order.setLength(rs.getDouble("weigth"));
-        order.setFrom(rs.getTimestamp("timestamp_from").toLocalDateTime());
-        order.setTo(rs.getTimestamp("timestamp_to").toLocalDateTime());
-        order.setCreationTime(rs.getTimestamp("creation_time").toLocalDateTime());
+        order.setWeight(rsWrapper.getOptional("weight", Double.class));
+        order.setCapacity(rsWrapper.getOptional("capacity", Double.class));
+        order.setDeliveryTimeFrom(rsWrapper.getLocalDateTime("delivery_time_from"));
+        order.setDeliveryTimeTo(rsWrapper.getLocalDateTime("delivery_time_to"));
+        order.setLoadInterval(rsWrapper.getPGInterval("load_interval"));
+        order.setUploadingInterval(rsWrapper.getPGInterval("uploading_interval"));
         return order;
     }
 }

@@ -1,5 +1,7 @@
 package rooting.model;
 
+import org.postgresql.util.PGInterval;
+
 import java.time.LocalDateTime;
 
 /**
@@ -11,34 +13,33 @@ public class Order {
     private long id;
     private long stockId;
     private Point destination;
-    private double length;
-    private double width;
-    private double height;
-    private double weigth;
-    private boolean scheduled;
-    private LocalDateTime from;
-    private LocalDateTime to;
     private LocalDateTime creationTime;
+    private Double weight;
+    private Double capacity;
+    private LocalDateTime deliveryTimeFrom;
+    private LocalDateTime deliveryTimeTo;
+    private PGInterval loadInterval;
+    private PGInterval uploadingInterval;
+
+    private boolean scheduled;
 
     public Order() {
     }
 
     public Order(long id, long stockId, Point destination,
-                 double length,
-                 double width, double height, double weigth,
-                 LocalDateTime from, LocalDateTime to,
-                 LocalDateTime creationTime) {
+                 Double weight, Double capacity,
+                 LocalDateTime deliveryTimeFrom, LocalDateTime deliveryTimeTo,
+                 PGInterval loadInterval, PGInterval uploadingInterval) {
         this.id = id;
         this.stockId = stockId;
         this.destination = destination;
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        this.weigth = weigth;
-        this.scheduled = false;
-        this.from = from;
-        this.to = to;
-        this.creationTime = creationTime;
+        this.creationTime = LocalDateTime.now();
+        this.weight = weight;
+        this.capacity = capacity;
+        this.deliveryTimeFrom = deliveryTimeFrom;
+        this.deliveryTimeTo = deliveryTimeTo;
+        this.loadInterval = loadInterval;
+        this.uploadingInterval = uploadingInterval;
     }
 
     public long getId() {
@@ -65,46 +66,6 @@ public class Order {
         this.destination = destination;
     }
 
-    public double getLength() {
-        return length;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWeigth() {
-        return weigth;
-    }
-
-    public void setWeigth(double weigth) {
-        this.weigth = weigth;
-    }
-
-    public boolean isScheduled() {
-        return scheduled;
-    }
-
-    public void setScheduled(boolean scheduled) {
-        this.scheduled = scheduled;
-    }
-
     public LocalDateTime getCreationTime() {
         return creationTime;
     }
@@ -113,28 +74,59 @@ public class Order {
         this.creationTime = creationTime;
     }
 
-    public LocalDateTime getFrom() {
-        return from;
+    public Double getWeight() {
+        return weight;
     }
 
-    public void setFrom(LocalDateTime from) {
-        this.from = from;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
-    public LocalDateTime getTo() {
-        return to;
+    public Double getCapacity() {
+        return capacity;
     }
 
-    public void setTo(LocalDateTime to) {
-        this.to = to;
+    public void setCapacity(Double capacity) {
+        this.capacity = capacity;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", destination=" + destination +
-                ", weigth=" + weigth +
-                '}';
+    public LocalDateTime getDeliveryTimeFrom() {
+        return deliveryTimeFrom;
+    }
+
+    public void setDeliveryTimeFrom(LocalDateTime deliveryTimeFrom) {
+        this.deliveryTimeFrom = deliveryTimeFrom;
+    }
+
+    public LocalDateTime getDeliveryTimeTo() {
+        return deliveryTimeTo;
+    }
+
+    public void setDeliveryTimeTo(LocalDateTime deliveryTimeTo) {
+        this.deliveryTimeTo = deliveryTimeTo;
+    }
+
+    public PGInterval getLoadInterval() {
+        return loadInterval;
+    }
+
+    public void setLoadInterval(PGInterval loadInterval) {
+        this.loadInterval = loadInterval;
+    }
+
+    public PGInterval getUploadingInterval() {
+        return uploadingInterval;
+    }
+
+    public void setUploadingInterval(PGInterval uploadingInterval) {
+        this.uploadingInterval = uploadingInterval;
+    }
+
+    public boolean isScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(boolean scheduled) {
+        this.scheduled = scheduled;
     }
 }

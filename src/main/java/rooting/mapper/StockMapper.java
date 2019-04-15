@@ -15,6 +15,7 @@ public class StockMapper implements RowMapper<Stock> {
     @Override
     public Stock mapRow(ResultSet rs, int rowNum) throws SQLException {
         Stock stock = new Stock();
+        ResultSetWrapper rsWrapper = new ResultSetWrapper(rs);
         stock.setId(rs.getLong("id"));
         stock.setLocation(
                 new Point(
@@ -22,6 +23,7 @@ public class StockMapper implements RowMapper<Stock> {
                         rs.getDouble("longitude")
                 )
         );
+        stock.setCreationTime(rsWrapper.getLocalDateTime("creation_time"));
         return stock;
     }
 }

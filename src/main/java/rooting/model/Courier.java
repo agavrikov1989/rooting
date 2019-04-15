@@ -16,7 +16,7 @@ public class Courier {
     private final static double MIDDLE_SPEED = 33.0834464;
     private final static int UPLOADING_TIME = 5; //время разгрузки заказа
 
-    private double weigth = 0; //грузоподьемность курьера
+    private double weight = 0; //грузоподьемность курьера
     private int workingTime = 0; //время работы курьера в минутах
     private double dist = 0; //расстояние, которое курьер преодалел
 
@@ -32,7 +32,7 @@ public class Courier {
     }
 
     public boolean canAddOrder(Order order) {
-        if (weigth + order.getWeigth() > MAX_WEIGTH) {
+        if (weight + order.getWeight() > MAX_WEIGTH) {
             return false;
         }
         if (workingTime + calcWorkingTime(order.getDestination()) > MAX_WORKING_TIME) {
@@ -50,7 +50,7 @@ public class Courier {
         if (!canAddOrder(order)) {
             return;
         }
-        weigth += order.getWeigth();
+        weight += order.getWeight();
         workingTime = workingTime + calcWorkingTime(order.getDestination()) + UPLOADING_TIME;
         dist += location.dist(order.getDestination());
         order.setScheduled(true);
@@ -69,19 +69,19 @@ public class Courier {
     @Override
     public String toString() {
         return "Courier{" +
-                "weigth=" + weigth +
+                "weight=" + weight +
                 ", workingTime=" + workingTime +
                 ", dist=" + dist +
                 ", orders=" + orders +
                 '}';
     }
 
-    public double getWeigth() {
-        return weigth;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setWeigth(double weigth) {
-        this.weigth = weigth;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public int getWorkingTime() {
