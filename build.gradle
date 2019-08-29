@@ -30,8 +30,10 @@ dependencies {
     compile 'org.springframework:spring-context:4.3.13.RELEASE'
     compile 'org.springframework:spring-jdbc:4.3.13.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'org.thymeleaf:thymeleaf-spring4:2.1.6.RELEASE'
     compile group: 'org.springframework', name: 'spring-aop', version: '4.3.13.RELEASE'
     compile group: 'org.springframework', name: 'spring-beans', version: '4.3.13.RELEASE'
+
 
     compile group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
 

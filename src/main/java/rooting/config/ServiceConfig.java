@@ -2,7 +2,9 @@ package rooting.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import rooting.service.OrderService;
+import rooting.service.SlotService;
 import rooting.service.StockService;
 
 /**
@@ -20,5 +22,10 @@ public class ServiceConfig {
     @Bean
     public StockService stockService() {
         return new StockService();
+    }
+
+    @Bean
+    public SlotService slotService() {
+        return new SlotService();
     }
 }
