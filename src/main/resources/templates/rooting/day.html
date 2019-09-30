@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        .row.content {
+            height: 450px
+        }
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+        @media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+    <script>
+        function deleteSlot(id){
+            $.ajax({
+                "url": "/slots/" + id,
+                "method": "DELETE"
+            }).done(function() {
+                location.reload();
+            }).fail(function (data, status) {
+                alert("Не удалось удалить слот " + data.status + " " + data.statusText + " " + status);
+            });
+        }
+    </script>
+    <title>Список слотов в определенный день</title>
+</head>
+<body>
+
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-8 text-left">
+            <div>
+                <div class="well">
+                    <div class="panel-body">
+                        <h1>
+                            <span th:text="'Слоты, запланированные в день ' + ${days.getOrDefault(id, id)}"/>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td><b>Номер слота</b></td>
+                        <td><b>Время начала</b></td>
+                        <td><b>Время конца</b></td>
+                        <td><b>Конвеер</b></td>
+                        <td/>
+                    </tr>
+                    </thead>
+
+                    <!--/*@thymesVar id="slots" type="java.util.Collection"*/-->
+                    <!--/*@thymesVar id="slot" type="rooting.model.Slot"*/-->
+                    <tr th:each="slot : ${slots}">
+                        <td th:text="${slot.getId()}"/>
+                        <td th:text="${slot.getTimeFrom()}"/>
+                        <td th:text="${slot.getTimeTo()}"/>
+                        <td>
+                            <a th:href="@{/conveyor(stockId=${stockId},id=${slot.getConveyor()})}" th:text="${slot.getConveyor()}"/>
+                        </td>
+                        <td>
+                            <img src="img/delete_icon.png" border="0" width="30" height="30" th:onclick="'deleteSlot(' + ${slot.getId()} + ')'"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
